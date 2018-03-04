@@ -6,8 +6,10 @@ document.onkeypress = function (e) {
 
 function move () {
   let elem = document.getElementById('text')
-  elem.style.left = generateLocation(0, elem.offsetWidth, elem.offsetHeight)
-  elem.style.top = generateLocation(1, elem.offsetWidth, elem.offsetHeight)
+  console.log(elem.offsetWidth)
+  console.log(elem.offsetHeight)
+  elem.style.left = generateLocation(0, elem.offsetWidth)
+  elem.style.top = generateLocation(1, elem.offsetHeight)
 }
 
 function changeColor () {
@@ -15,11 +17,11 @@ function changeColor () {
   elem.style.color = generateColor()
 }
 
-function generateLocation (i, width, height) {
-  let constraints = [(window.innerWidth - width)/window.innerWidth, (window.innerHeight - height)/window.innerHeight]
-  let location = Math.floor(Math.random() * 100) * constraints[i]
-  // console.log(location)
-  return location.toString() + '%'
+function generateLocation (i, elemConst) {
+  let windowConst = [window.innerWidth, window.innerHeight]
+  let randNum = Math.floor(Math.random() * 100)
+  let locPerc = randNum * (windowConst[i] - elemConst) / windowConst[i]
+  return locPerc.toString() + '%'
 }
 
 function generateColor () {
