@@ -1,17 +1,67 @@
-let displayText = 'press a new key for a cool link from me'
+/// /// /// data /// /// ///
+
+let nextIteration = [
+  {
+    displayText: 'Truly, I wonder',
+    linkURL: 'https://chickenonaraft.com/',
+    linkText: 'let\'s start off fun'
+  },
+  {
+    displayText: 'How do you feel',
+    linkURL: 'https://www.merriam-webster.com/dictionary/gubernatorial',
+    linkText: 'goobernatorial'
+  },
+  {
+    displayText: 'How do you feel',
+    linkURL: 'https://www.merriam-webster.com/dictionary/gubernatorial',
+    linkText: 'goobernatorial'
+  },
+  {
+    displayText: 'How do you feel',
+    linkURL: 'https://www.merriam-webster.com/dictionary/gubernatorial',
+    linkText: 'goobernatorial'
+  },
+  {
+    displayText: 'How do you feel',
+    linkURL: 'https://www.merriam-webster.com/dictionary/gubernatorial',
+    linkText: 'goobernatorial'
+  },
+  {
+    displayText: 'How do you feel',
+    linkURL: 'https://www.merriam-webster.com/dictionary/gubernatorial',
+    linkText: 'goobernatorial'
+  },
+  {
+    displayText: 'How do you feel',
+    linkURL: 'https://www.merriam-webster.com/dictionary/gubernatorial',
+    linkText: 'goobernatorial'
+  }
+]
+
+let linkNum = 0
+let data = nextIteration[0]
+
+/// /// /// functions /// /// ///
 
 document.onkeypress = function (e) {
-  // console.log(constants)
-  move()
   changeColor()
   postLink()
+  move()
+  refreshData()
 }
 
 function move () {
-  document.getElementById('text').innerHTML = displayText
+  document.getElementById('text').innerHTML = data.displayText
   let elem = document.getElementById('text')
-  // console.log(elem.offsetWidth)
-  // console.log(elem.offsetHeight)
+  changeLocation(elem)
+  for (let i = 0; i < linkNum + 1; i++) {
+    elem = document.getElementById('link' + i)
+    console.log(elem)
+    changeLocation(elem)
+  }
+}
+
+function changeLocation (elem) {
   elem.style.left = generateLocation(0, elem.offsetWidth)
   elem.style.top = generateLocation(1, elem.offsetHeight)
 }
@@ -21,11 +71,10 @@ function changeColor () {
   elem.style.color = generateColor()
 }
 
-function generateLocation (i, elemConst) {
+function generateLocation (flag, elemConst) {
   let windowConst = [window.innerWidth, window.innerHeight]
   let randNum = Math.floor(Math.random() * 100)
-  let locPerc = randNum * (windowConst[i] - elemConst) / windowConst[i]
-  // console.log(i, locPerc)
+  let locPerc = randNum * (windowConst[flag] - elemConst) / windowConst[flag]
   return locPerc.toString() + '%'
 }
 
@@ -34,9 +83,17 @@ function generateColor () {
 }
 
 function postLink () {
+  let div = document.createElement('div')
+  div.id = 'link' + linkNum
   let a = document.createElement('a')
-  let linkText = document.createTextNode('_click me_')
+  let linkText = document.createTextNode(data.linkText + ' ')
   a.appendChild(linkText)
-  a.href = 'https://chickenonaraft.com/'
-  document.body.appendChild(a)
+  a.href = data.linkURL
+  div.appendChild(a)
+  document.body.appendChild(div)
+}
+
+function refreshData () {
+  data = nextIteration[linkNum]
+  linkNum++
 }
