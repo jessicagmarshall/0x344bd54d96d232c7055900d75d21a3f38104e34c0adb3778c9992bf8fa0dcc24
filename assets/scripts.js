@@ -1,24 +1,26 @@
-document.onkeypress = function (e) {
-    e = 32
-    document.getElementById('text').innerHTML = display[i]
-    if (i == 4) {
-        i = 4;
-        var para = document.createElement("h2");
-        var node = document.createTextNode("kiss da goobi");
-        para.appendChild(node);
+// let i = 0
+// let display = 'press any key'
 
-        var text = document.getElementById("text");
-        text.appendChild(para);
-    }
-    else if (i == 3) {
-	i += 2
-    } 
-    else if (i == display.length - 1) {
-	i = 4
-    }
-    else {
-        i++
-    }
+document.onkeypress = function (e) {
+  // e = 32
+  // display = 'press space, round ' + i.toString()
+  // document.getElementById('text').innerHTML = display
+  // i++
+  move()
 }
 
-var i = 0;
+function move () {
+  let elem = document.getElementById('text')
+  elem.style.left = generateLocation()
+  elem.style.top = generateLocation()
+  elem.style.color = generateColor()
+}
+
+function generateLocation () {
+  let location = Math.floor(Math.random() * 100)
+  return location.toString() + '%'
+}
+
+function generateColor () {
+  return '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
+}
