@@ -50,13 +50,19 @@ document.onkeypress = function (e) {
   refreshData()
 }
 
+document.onclick = function (e) {
+  changeColor()
+  postLink()
+  move()
+  refreshData()
+}
+
 function move () {
   document.getElementById('text').innerHTML = data.displayText
   let elem = document.getElementById('text')
   changeLocation(elem)
   for (let i = 0; i < linkNum + 1; i++) {
     elem = document.getElementById('link' + i)
-    console.log(elem)
     changeLocation(elem)
   }
 }
@@ -86,6 +92,7 @@ function postLink () {
   let div = document.createElement('div')
   div.id = 'link' + linkNum
   let a = document.createElement('a')
+  a.id = 'linkChild' + linkNum
   let linkText = document.createTextNode(data.linkText + ' ')
   a.appendChild(linkText)
   a.href = data.linkURL
